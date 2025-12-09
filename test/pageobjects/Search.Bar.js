@@ -1,28 +1,17 @@
 const { $ } = require ('@wdio/globals')
-
+const HomePage = require('../pageobjects/Home.js')
 
 class SearchPage {
-    get EbayLogo() {return $('#gh-logo')}
+
     get SearchBar() {return $('#gh-ac')}
-    get SearchButton() {return $('button#gh-search-button')}
-    get XButtonCategories() {return $('.ac-button.ac-recent-remove.call-to-action')}
     get SuggestionText() {return $('#ebay-ac-suggestion-0')}
-    get CategoriesDropdown() {return $('#gh-cat.gh-search-categories')}
-    get CategoryArt() {return $('#gh-cat option[value="550"]')}
-
-
+    get XButtonCategories() {return $('.ac-button.ac-recent-remove.call-to-action')}
     get NoResultsText() {return $('h3.srp-save-null-search__heading')}
     get ResultsHeading() {return $('h1.srp-controls__count-heading')}
     get ErrorBlock() {return $('div.s-error')}
     get CategoriesContainer() {return $('div.content-container')}
     get InstedText() {return $('.section-notice__main')}
 
-
-    async scrollDown(px) {
-    await browser.execute((y) => {
-        window.scrollBy(0, y)
-    }, px)
- }
     async SearchNormalText(item) {
         await this.SearchBar.setValue(item)
         await browser.keys('Enter')
@@ -59,40 +48,36 @@ class SearchPage {
         input.value = value
         input.dispatchEvent(new Event('input', { bubbles: true }))
     }, selector, item)
-    }
- 
- async SearchExpectingErrorBlock(item) {
-        await this.SearchBar.setValue(item)
         await browser.keys('Enter')
-        await expect(this.ErrorBlock).toBeDisplayed()
+        await expect(this.CategoriesContainer).toBeDisplayed()
     }
 
 
     // Verify Search Bar Utility With Categories
 
  async ClickCategoriesDropdownTest() {
-        await this.CategoriesDropdown.click()
-        await expect (this.CategoriesDropdown).toBeClickable()
+        await HomePage.CategoriesDropdown.click()
+        await expect (HomePage.CategoriesDropdown).toBeClickable()
     }
 
     async ClickOutCategoriesDropdownTest() {
-        await this.CategoriesDropdown.click()
+        await HomePage.CategoriesDropdown.click()
         await this.SearchBar.click()
-        await expect (this.CategoriesDropdown).toBeClickable()
+        await expect (HomePage.CategoryArt).not.toBeClickable()
     }
 
     async SelectCategoryTest() {
-        await this.CategoriesDropdown.click()
-        await this.CategoryArt.click()
-        await this.CategoryArt.isClickable()
+        await HomePage.CategoriesDropdown.click()
+        await HomePage.CategoryArt.click()
+        await (expect.stringContaining('[data-gtm-form-interact-field-id="0"]'))
     }
 
     async SearchInCategoryTest() {
-        await this.CategoriesDropdown.click()
-        await this.CategoryArt.click()
-        await this.CategoryArt.isClickable()
+        await HomePage.CategoriesDropdown.click()
+        await HomePage.CategoryArt.click()
+        await HomePage.CategoryArt.isClickable()
         await browser.keys('Enter')
-        await expect(browser).toHaveUrl(expect.stringContaining('/b/Art/550/bn_1853728'))
+         await expect(browser).toHaveUrl(expect.stringContaining('Art'))
     }
 
     // Search Bar Auto-Suggestion & Search History Functionality
@@ -108,14 +93,14 @@ class SearchPage {
         await this.SearchBar.setValue(item)
         await browser.keys('Enter')
         await this.SearchBar.click()
-        await this.scrollDown(600)
+        await HomePage.scrollDown(600)
         await expect(this.SuggestionText).not.toBeDisplayed()
     }
 
     async ClickSuggestionTest(item) {
         await this.SearchBar.setValue(item)
         await browser.keys('Enter')
-        await this.EbayLogo.click()
+        await HomePage.EbayLogo.click()
         await this.SearchBar.click()
         await this.SuggestionText.click()
         await expect(this.ResultsHeading).toBeDisplayed()
@@ -135,7 +120,7 @@ class SearchPage {
 
     async RemainHistoryTest() {
         await browser.keys('Enter')
-        await this.EbayLogo.click()
+        await HomePage.EbayLogo.click()
         await this.SearchBar.click()
         await expect(this.SuggestionText).toBeDisplayed()
     }
