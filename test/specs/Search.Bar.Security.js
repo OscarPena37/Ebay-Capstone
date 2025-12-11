@@ -10,15 +10,15 @@ beforeEach(async () => {
 
 
    it('Type XSS Text', async () => {
-        await SearchPage.TypeXSSTest('<script>alert(1)</script>')
+        await SearchPage.TypeSecurityTest('<script>alert(1)</script>')
     })
 
     it('Type SQL Text', async () => {
-        await SearchPage.TypeSQLTest('SELECT * FROM items')
+        await SearchPage.TypeSecurityTest('SELECT * FROM items')
     })
 
     it('Type HTML Text', async () => {
-        await SearchPage.TypeHTMLTest('<b>iPhone</b>')
+        await SearchPage.TypeSecurityTest('<b>iPhone</b>')
     })
 
 }) 

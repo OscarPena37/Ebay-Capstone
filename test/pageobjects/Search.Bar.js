@@ -12,32 +12,16 @@ class SearchPage {
     get CategoriesContainer() {return $('div.content-container')}
     get InstedText() {return $('.section-notice__main')}
 
-    async SearchNormalText(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
- }
-
 
     // Verify Search Bar Utility With Imputs
 
 
-    async SearchExpectingHeading(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
-        await expect(this.ResultsHeading).toBeDisplayed()
+async SearchAndExpect(item, expectedElement) {
+    await this.SearchBar.setValue(item)
+    await browser.keys('Enter')
+    await expect(expectedElement).toBeDisplayed()
     }
 
- async SearchExpectingCategories(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
-        await expect(this.CategoriesContainer).toBeDisplayed()
-    }
-
- async SearchExpectingNoResult(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
-        await expect(this.NoResultsText).toBeDisplayed()
-    }
 
 
     async SearchEmojiText(item) {
@@ -66,19 +50,19 @@ class SearchPage {
         await expect (HomePage.CategoryArt).not.toBeClickable()
     }
 
-    async SelectCategoryTest() {
+    async SelectSpecificCategoryTest() {
         await HomePage.CategoriesDropdown.click()
         await HomePage.CategoryArt.click()
         await (expect.stringContaining('[data-gtm-form-interact-field-id="0"]'))
     }
 
-    async SearchInCategoryTest() {
-        await HomePage.CategoriesDropdown.click()
-        await HomePage.CategoryArt.click()
-        await HomePage.CategoryArt.isClickable()
-        await browser.keys('Enter')
-         await expect(browser).toHaveUrl(expect.stringContaining('Art'))
-    }
+   async SelectCategory(categoryElement, expectedUrlPart) {
+    await HomePage.CategoriesDropdown.click()
+    await categoryElement.click()
+    await browser.keys('Enter')
+    await expect(browser).toHaveUrl(expect.stringContaining(expectedUrlPart))
+}
+
 
     // Search Bar Auto-Suggestion & Search History Functionality
 
@@ -134,19 +118,7 @@ class SearchPage {
 
     // Injecting Code Type Language
 
-    async TypeXSSTest(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
-        await expect (this.ResultsHeading).toBeDisplayed
-    }
-
-    async TypeSQLTest(item) {
-        await this.SearchBar.setValue(item)
-        await browser.keys('Enter')
-        await expect (this.ResultsHeading).toBeDisplayed
-    }
-
-    async TypeHTMLTest(item) {
+    async TypeSecurityTest(item) {
         await this.SearchBar.setValue(item)
         await browser.keys('Enter')
         await expect (this.ResultsHeading).toBeDisplayed

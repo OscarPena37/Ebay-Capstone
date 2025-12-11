@@ -15,12 +15,12 @@ beforeEach(async () => {
             await SearchPage.ClickOutCategoriesDropdownTest()
         })
 
-    it('Select a Category ', async () => {
-            await SearchPage.SelectCategoryTest()
+    it('Select art Category ', async () => {
+            await SearchPage.SelectSpecificCategoryTest()
         })
 
     it('Search Inside a Category', async () => {
-            await SearchPage.SearchInCategoryTest()
+            await SearchPage.SelectCategory(HomePage.CategoryArt, 'Art')
         })
 
 

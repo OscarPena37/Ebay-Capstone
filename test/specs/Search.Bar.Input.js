@@ -9,19 +9,19 @@ beforeEach(async () => {
     })
  
    it('Type Normal Text', async () => {
-        await SearchPage.SearchExpectingHeading('iPhone')
+        await SearchPage.SearchAndExpect('iPhone', SearchPage.ResultsHeading)
     })
 
    it('Type Mixed Case', async () => {
-        await SearchPage.SearchExpectingHeading('IpHoNe')
+        await SearchPage.SearchAndExpect('IpHoNe', SearchPage.ResultsHeading)
     })
 
     it('Type With Spaces', async () => {
-        await SearchPage.SearchExpectingHeading('i P h o n e')
+        await SearchPage.SearchAndExpect('i P h o n e', SearchPage.ResultsHeading)
     })
 
     it('Type Invalid Text', async () => {
-        await SearchPage.SearchExpectingCategories('@#$%^&*()')
+        await SearchPage.SearchAndExpect('@#$%^&*()',SearchPage.CategoriesContainer)
     })
 
     it('Type Emoji Text', async () => {
@@ -29,22 +29,24 @@ beforeEach(async () => {
     })
     
     it('Type Long Text', async () => {
-        await SearchPage.SearchExpectingNoResult('i have no idea what i am going to say in this text but i am making sure that it is super long so in the test it can prove what happens when you right a super long text in the search bar and i am going to fill it out by adding my name at the end of this text and my birth date beacuse why not Oscar Pena Jr born the 6th of july of 2007 ')
+       
+        const longText = "test".repeat(100)
+        await SearchPage.SearchAndExpect(longText, SearchPage.ErrorBlock)
     })
 
     it('Type Only Numbers', async () => {
-        await SearchPage.SearchExpectingNoResult('12345678900987654321')
+        await SearchPage.SearchAndExpect('12345678900987654321', SearchPage.NoResultsText)
     })
 
     it('Search With No Text ', async () => {
-        await SearchPage.SearchExpectingCategories('')
+        await SearchPage.SearchAndExpect('',SearchPage.CategoriesContainer)
     })
 
     it('Type Random Text', async () => {
-        await SearchPage.SearchExpectingNoResult('oiuytrdsdcfghjkoiuytr')
+        await SearchPage.SearchAndExpect('oiuytrdsdcfghjkoiuytr', SearchPage.NoResultsText)
     })
 
     it('Type Spaces Only', async () => {
-        await SearchPage.SearchNormalText('              ')
+        await SearchPage.SearchAndExpect('              ', SearchPage.ErrorBlock)
     })
 })

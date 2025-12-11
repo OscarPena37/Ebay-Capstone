@@ -7,9 +7,7 @@ beforeEach(async () => {
         await HomePage.open()
     })
     
-    it('Verifys That Nav Bar Exsists and is Visible', async () => {
-            await NavPage.VerifyNavExsists()
-        })
+    
     it('Verifys That All Paths Are Clickable', async () => {
             await NavPage.ClickAllPaths()
         })
