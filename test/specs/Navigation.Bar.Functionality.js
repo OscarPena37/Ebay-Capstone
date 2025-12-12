@@ -18,10 +18,10 @@ beforeEach(async () => {
             await NavPage.HoverOutNav()
         })
     it('Open a Sub Catyegory From Path', async () => {
-            await NavPage.ClickSubPath()
+            await NavPage.ClickAllSubPaths()
         })
     it('Click Shop Now Button', async () => {
-            await NavPage.ClickShopNow()
+            await NavPage.ClickAllShopButtons()
         })
 
 
