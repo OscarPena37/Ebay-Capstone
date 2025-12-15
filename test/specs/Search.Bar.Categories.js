@@ -1,11 +1,10 @@
-const Home = require('../pageobjects/Home.js')
 const HomePage = require('../pageobjects/Home.js')
 const SearchPage = require('../pageobjects/Search.Bar.js')
 
 describe('Verify Search Bar Utility With Categories', () => {
 
 beforeEach(async () => {
-        await HomePage.open()
+        await HomePage.Ebay()
     })
 
    it('Select categories from dropdown', async () => {

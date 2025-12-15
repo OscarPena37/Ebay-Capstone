@@ -5,7 +5,7 @@ const SearchPage = require('../pageobjects/Search.Bar.js')
 describe('Verify Search Bar Utility With Imputs', () => { 
 
 beforeEach(async () => {
-        await HomePage.open()
+        await HomePage.Ebay()
     })
  
    it('Type Normal Text', async () => {

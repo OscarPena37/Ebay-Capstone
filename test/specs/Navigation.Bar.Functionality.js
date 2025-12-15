@@ -4,7 +4,7 @@ const NavPage = require('../pageobjects/Navigation.Bar.js')
 describe('Verify Functionlity of the Navigation Bar', () => {
     
 beforeEach(async () => {
-        await HomePage.open()
+        await HomePage.Ebay()
     })
     
     

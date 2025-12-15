@@ -5,7 +5,7 @@ const SearchPage = require('../pageobjects/Search.Bar.js')
 describe('Verify Search Bar Utility With Code Type Language', () => {
 
 beforeEach(async () => {
-        await HomePage.open()
+        await HomePage.Ebay()
     })
 
 

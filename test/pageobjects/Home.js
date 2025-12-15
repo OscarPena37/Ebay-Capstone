@@ -3,7 +3,7 @@ const { browser } = require('@wdio/globals')
 class HomePage {
 
 
-    open () {
+    Ebay () {
         return browser.url(`https://www.ebay.com/`)
     }
     

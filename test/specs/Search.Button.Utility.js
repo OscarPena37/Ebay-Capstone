@@ -4,7 +4,7 @@ const SearchPageButton = require('../pageobjects/Search.Button.js')
 describe('Verify Search Bar Utility With Categories', () => {
     
 beforeEach(async () => {
-        await HomePage.open()
+        await HomePage.Ebay()
     })
     it('ReDirect to Search Page', async () => {
             await SearchPageButton.ReDirectSearchPageTest()

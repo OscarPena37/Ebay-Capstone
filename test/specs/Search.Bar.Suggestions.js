@@ -4,7 +4,7 @@ const SearchPage = require('../pageobjects/Search.Bar.js')
 describe('Search Bar Auto-Suggestion & Search History Functionality', () => {
 
 beforeEach(async () => {
-        await HomePage.open() 
+        await HomePage.Ebay() 
     })
 
 
