@@ -20,8 +20,6 @@ class NavPage {
     async hoverCategory(name) {
     await this.Category(name).moveTo()
  }
-    
-
 
     async ClickAllPaths() {
     const paths = [
@@ -81,29 +79,16 @@ class NavPage {
 }
 
 
-  async ClickAllImages() {
-    const paths = [
-        { name1: 'Motors',name2:'img[alt="Motors"]'},
-        { name1: 'Electronics',name2:'img[alt="Electronics"]'},
-        { name1: 'Collectibles',name2:'img[alt="Collectibles"]'},
-        { name1: 'Home & Garden',name2:'img[alt="Home & Garden"]'},
-        { name1: 'Clothing, Shoes & Accessories',name2:'img[alt="Clothing, Shoes & Accessories"]'},
-        { name1: 'Toys',name2:'img[alt="Toys"]'},
-        { name1: 'Sporting Goods',name2:'img[alt="Sporting Goods"]'},
-        { name1: 'Business & Industrial',name2:'img[alt="Business & Industria"]', before: true },
-        { name1: 'Jewelry & Watches',name2:'img[alt="Jewelry & Watches"]',before: true },
-        { name1: 'Refurbished',name2:'img[alt="Refurbished"]', before: true },
-    ]
-    for (const p of paths) {
-        if (p.before) {
-        await browser.setWindowSize(1920, 1080)}
-        await this.hoverCategory(p.name1)
-        await expect(this.Image(p.name2)).toBeClickable()
-        await this.Image(p.name2).click()
-       await browser.closeWindow()
+  async hoverAndClickImage(name) {
+    const category = $(`span=${name}`)
+    await category.waitForDisplayed({ timeout: 5000 })
+    await category.moveTo()
 
-    }
+    const image = $(`img[alt="${name}"]`)
+    await image.waitForDisplayed({ timeout: 5000 })
+    await image.click()
 }
+
 
 
 }

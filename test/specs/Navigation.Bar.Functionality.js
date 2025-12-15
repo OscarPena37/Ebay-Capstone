@@ -20,8 +20,8 @@ beforeEach(async () => {
     it('Open a Sub Catyegory From Path', async () => {
             await NavPage.ClickAllSubPaths()
         })
-    it('Click Shop Now Button', async () => {
-            await NavPage.ClickAllImages()
+    it('Click Image in Dropbox', async () => {
+            await NavPage.hoverAndClickImage('Motors')
         })
 
 

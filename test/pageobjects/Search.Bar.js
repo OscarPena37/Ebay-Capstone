@@ -1,6 +1,5 @@
 const { $ } = require ('@wdio/globals')
 const HomePage = require('../pageobjects/Home.js')
-const Home = require('../pageobjects/Home.js')
 
 class SearchPage {
 
