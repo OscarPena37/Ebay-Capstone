@@ -13,15 +13,15 @@ beforeEach(async () => {
     })
 
     it('Scroll Out Of Suggestion Text Box', async () => {
-        await SearchPage.ScrollOutSuggestionTest('iPhone')
+        await SearchPage.ScrollOutSuggestionTest('Nintendo')
     })
 
     it('Click Suggestion Text Box', async () => {
-        await SearchPage.ClickSuggestionTest('iPhone')
+        await SearchPage.ClickSuggestionTest('xbox')
     })
 
     it('Delete Suggestion Text Box', async () => {
-        await SearchPage.DeleteSuggestionTest('iPhone')
+        await SearchPage.DeleteSuggestionTest('Pokemon')
     })
 
     it('Typo Detection (did you mean…) Test', async () => {
@@ -29,10 +29,10 @@ beforeEach(async () => {
     })
 
     it('Search History Remains Test', async () => {
-        await SearchPage.RemainHistoryTest('iPhone')
+        await SearchPage.RemainHistoryTest('Laptop')
     })
 
     it('Suggetsion And History Test', async () => {
-        await SearchPage.SuggestionAndHistoryTest('iPhone')
+        await SearchPage.SuggestionAndHistoryTest('Samsung')
     })
 })

@@ -6,10 +6,7 @@ describe('Verify Search Bar Utility With Categories', () => {
 beforeEach(async () => {
         await HomePage.open()
     })
-    it('Click Serach Button', async () => {
-            await SearchPageButton.ClickSearchButtonTest()
-        })
-    it('ReDirect to Serach Page', async () => {
+    it('ReDirect to Search Page', async () => {
             await SearchPageButton.ReDirectSearchPageTest()
         })
     it('Click Search Button With All Categories Option', async () => {
@@ -24,21 +21,22 @@ beforeEach(async () => {
     it('Click Out Of Dropbox and Search', async () => {
             await SearchPageButton.ClickOutDropboxTest()
         })
-    it('Click Electronics Section Inside Search Page ', async () => {
-            await SearchPageButton.ClickElectronicsSection()
-        })
     it('Click Art Category and Section in Search Page ', async () => {
             await SearchPageButton.SelectSectionWithCategoriy()
         })
-    it('Verifys Images Inside Electronics Section', async () => {
-            await SearchPageButton.VerifyImagesInElectronics()
-    })
-    it('Verifys URL inside Electronics Section', async () => {
-            await SearchPageButton.VerifyURLElectronicsSection()
+   it('Click Electronics Section Inside Search Page', async () => {
+            await SearchPageButton.verifyElectronicsSection(['URL'])
         })
-        it('Verifys Checkmark is Visible', async () => {
-            await SearchPageButton.VerifyCheckmarkVisible()
+   it('Verifies Images Inside Electronics Section', async () => {
+            await SearchPageButton.verifyElectronicsSection(['IMAGE'])
         })
+   it('Verifies URL Inside Electronics Section', async () => {
+            await SearchPageButton.verifyElectronicsSection(['URL'])
+        })
+   it('Verifys Checkmark is Visible', async () => {
+            await SearchPageButton.verifyElectronicsSection(['CHECKMARK'])
+        })
+
 })
 
 

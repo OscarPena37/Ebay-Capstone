@@ -1,3 +1,4 @@
+const Home = require('../pageobjects/Home.js')
 const HomePage = require('../pageobjects/Home.js')
 const SearchPage = require('../pageobjects/Search.Bar.js')
 
@@ -7,21 +8,14 @@ beforeEach(async () => {
         await HomePage.open()
     })
 
-    it('Open Drop Box', async () => {
-            await SearchPage.ClickCategoriesDropdownTest()
-        })
+   it('Select categories from dropdown', async () => {
+    const categories = [
+        { element: HomePage.CategoryArt, expectedUrl: 'Art' },
+        { element: HomePage.CategoryCollectibles, expectedUrl: 'Collectibles' },
+        { element: HomePage.CategoryBooks, expectedUrl: 'Books' }
+    ]
 
-    it('Open and close Drop Box', async () => {
-            await SearchPage.ClickOutCategoriesDropdownTest()
-        })
-
-    it('Select art Category ', async () => {
-            await SearchPage.SelectSpecificCategoryTest()
-        })
-
-    it('Search Inside a Category', async () => {
-            await SearchPage.SelectCategory(HomePage.CategoryArt, 'Art')
-        })
-
+    await SearchPage.selectCategoriesFromDropdown(categories)
+})
 
 }) 

@@ -9,12 +9,11 @@ class SearchPageButton {
 
     get ElectronicsImage() {return $('img[alt="Computers, Tablets & Network Hardware"]')}
     get ActiveElectronics() {return $('li.active a[href="#electronics"]')}
+    async goToElectronicsSection() {
+    await this.SearchButton.click()
+    await this.ElectronicsPage.click()
+}
 
-
-    async ClickSearchButtonTest() {
-        await this.SearchButton.click()
-        await expect (this.SearchButton).toBeClickable()
-    }
     async ReDirectSearchPageTest() {
         await this.SearchButton.click()
         await expect(browser).toHaveUrl(expect.stringContaining('/n/all-categories?_nkw=&_sacat=0&_from=R40&_trksid=m570.l1313'))
@@ -39,11 +38,6 @@ class SearchPageButton {
         await this.SearchButton.click()
         await expect (this.SearchButton).toBeClickable()
     }
-    async ClickElectronicsSection() {
-        await this.SearchButton.click()
-        await this.ElectronicsPage.click()
-        await expect (browser).toHaveUrl(expect.stringContaining('#electronics'))
-    }
     async SelectSectionWithCategoriy() {
         await HomePage.CategoriesDropdown.click()
         await HomePage.CategoryArt.click()
@@ -51,21 +45,38 @@ class SearchPageButton {
         await this.ArtDrawings.click()
         await expect (browser).toHaveUrl(expect.stringContaining('/b/Art-Drawings'))
     }
-    async VerifyImagesInElectronics() {
-        await this.SearchButton.click()
-        await this.ElectronicsPage.click()
-        await expect (this.ElectronicsImage).toBeDisplayed()
+
+    
+
+
+    async verifyElectronicsSection(validations = []) {
+    await this.goToElectronicsSection()
+
+    for (const validation of validations) {
+        switch (validation) {
+
+            case 'URL':
+                await expect(browser).toHaveUrl(
+                    expect.stringContaining('#electronics')
+                )
+                break
+
+            case 'IMAGE':
+                await expect(this.ElectronicsImage).toBeDisplayed()
+                break
+
+            case 'CHECKMARK':
+                await expect(this.ActiveElectronics).toBeDisplayed()
+                break
+
+            default:
+                throw new Error(`Unknown validation: ${validation}`)
+        }
     }
-    async VerifyURLElectronicsSection() {
-        await this.SearchButton.click()
-        await this.ElectronicsPage.click()
-        await expect (browser).toHaveUrl(expect.stringContaining('#electronics'))
-    }
-    async VerifyCheckmarkVisible() {
-    await this.SearchButton.click()
-    await this.ElectronicsPage.click()
-    await expect (this.ActiveElectronics).toBeDisplayed()
-    }
+}
+
+
+
 }
 module.exports = new SearchPageButton()
 

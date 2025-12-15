@@ -21,7 +21,7 @@ beforeEach(async () => {
             await NavPage.ClickAllSubPaths()
         })
     it('Click Shop Now Button', async () => {
-            await NavPage.ClickAllShopButtons()
+            await NavPage.ClickAllImages()
         })
 
 

@@ -6,12 +6,17 @@ class NavPage {
     get Category() {
     return (name) => $(`=${name}`)}
 
+    get Image() {
+    return (name) => $(`${name}`)}
+
     get MoreDropbox() {return $('div=More')}
     get MotorsSubPath() {return $('a.vl-flyout-nav__js-link')}
     get ShopNowButton() {return $('img.vl-flyout-nav__js-rtmImg[alt="Motors"]')}
     get SubHeader() {return $('h1.textual-display.page-title')}
     get NavContainer() {return $('ul.vl-flyout-nav__container')}
     get NavDropbox() {return $('.vl-flyout-nav__js-tab.vl-flyout-nav__js-show')}
+    get PageTitle() {return $('h1.page-title')}
+    
     async hoverCategory(name) {
     await this.Category(name).moveTo()
  }
@@ -72,6 +77,31 @@ class NavPage {
         await this.Category(p.name2).click()
         await expect(browser).toHaveUrl(expect.stringContaining(p.url))
         await HomePage.EbayLogo.click()
+    }
+}
+
+
+  async ClickAllImages() {
+    const paths = [
+        { name1: 'Motors',name2:'img[alt="Motors"]'},
+        { name1: 'Electronics',name2:'img[alt="Electronics"]'},
+        { name1: 'Collectibles',name2:'img[alt="Collectibles"]'},
+        { name1: 'Home & Garden',name2:'img[alt="Home & Garden"]'},
+        { name1: 'Clothing, Shoes & Accessories',name2:'img[alt="Clothing, Shoes & Accessories"]'},
+        { name1: 'Toys',name2:'img[alt="Toys"]'},
+        { name1: 'Sporting Goods',name2:'img[alt="Sporting Goods"]'},
+        { name1: 'Business & Industrial',name2:'img[alt="Business & Industria"]', before: true },
+        { name1: 'Jewelry & Watches',name2:'img[alt="Jewelry & Watches"]',before: true },
+        { name1: 'Refurbished',name2:'img[alt="Refurbished"]', before: true },
+    ]
+    for (const p of paths) {
+        if (p.before) {
+        await browser.setWindowSize(1920, 1080)}
+        await this.hoverCategory(p.name1)
+        await expect(this.Image(p.name2)).toBeClickable()
+        await this.Image(p.name2).click()
+       await browser.closeWindow()
+
     }
 }
 

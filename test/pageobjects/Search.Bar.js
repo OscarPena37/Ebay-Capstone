@@ -1,5 +1,6 @@
 const { $ } = require ('@wdio/globals')
 const HomePage = require('../pageobjects/Home.js')
+const Home = require('../pageobjects/Home.js')
 
 class SearchPage {
 
@@ -7,13 +8,11 @@ class SearchPage {
     get SuggestionText() {return $('#ebay-ac-suggestion-0')}
     get XButtonCategories() {return $('.ac-button.ac-recent-remove.call-to-action')}
     get NoResultsText() {return $('h3.srp-save-null-search__heading')}
-    get ResultsHeading() {return $('h1.srp-controls__count-heading')}
     get ErrorBlock() {return $('div.s-error')}
     get CategoriesContainer() {return $('div.content-container')}
     get InstedText() {return $('.section-notice__main')}
+    get ResultsHeading() {return $('h1.srp-controls__count-heading')}
 
-
-    // Verify Search Bar Utility With Imputs
 
 
 async SearchAndExpect(item, expectedElement) {
@@ -37,34 +36,21 @@ async SearchAndExpect(item, expectedElement) {
     }
 
 
-    // Verify Search Bar Utility With Categories
 
- async ClickCategoriesDropdownTest() {
-        await HomePage.CategoriesDropdown.click()
-        await expect (HomePage.CategoriesDropdown).toBeClickable()
+  async selectCategoriesFromDropdown(categories) {
+        for (const category of categories) {
+            await HomePage.CategoriesDropdown.click()
+            await category.element.click()
+            await HomePage.SearchButton.click()
+
+            await expect(browser).toHaveUrl(
+                expect.stringContaining(category.expectedUrl)
+            )
+        }
     }
 
-    async ClickOutCategoriesDropdownTest() {
-        await HomePage.CategoriesDropdown.click()
-        await this.SearchBar.click()
-        await expect (HomePage.CategoryArt).not.toBeClickable()
-    }
-
-    async SelectSpecificCategoryTest() {
-        await HomePage.CategoriesDropdown.click()
-        await HomePage.CategoryArt.click()
-        await (expect.stringContaining('[data-gtm-form-interact-field-id="0"]'))
-    }
-
-   async SelectCategory(categoryElement, expectedUrlPart) {
-    await HomePage.CategoriesDropdown.click()
-    await categoryElement.click()
-    await browser.keys('Enter')
-    await expect(browser).toHaveUrl(expect.stringContaining(expectedUrlPart))
-}
 
 
-    // Search Bar Auto-Suggestion & Search History Functionality
 
     async TriggerSuggestionTest(item) {
         await this.SearchBar.setValue(item)
@@ -116,7 +102,6 @@ async SearchAndExpect(item, expectedElement) {
         await expect (this.SuggestionText).not.toBeDisplayed()
     }
 
-    // Injecting Code Type Language
 
     async TypeSecurityTest(item) {
         await this.SearchBar.setValue(item)
